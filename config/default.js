@@ -19,7 +19,7 @@ module.exports = {
       publicKey: process.env.JWT_PUBLIC_KEY,
     },
     crm: {
-      enabled: false,
+      enabled: true,
       baseURL: process.env.CRM_API_BASE_URL,
       key: process.env.CRM_API_KEY,
     },

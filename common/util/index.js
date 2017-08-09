@@ -77,12 +77,3 @@ export function downcaseTrimTo21Chars(str) {
   return str.toLowerCase(str).slice(0, 21)
 }
 
-export async function first(collection, iteratorFn) {
-  let i = 0
-  let result
-  while (!result && i < collection.length) {
-    result = await iteratorFn(collection[i])
-    i++
-  }
-  return result
-}

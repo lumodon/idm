@@ -24,11 +24,9 @@ async function updateContactByVID(vid, properties) {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application.json'
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      properties
-    })
+    body: JSON.stringify(properties)
   })
 
   if (!resp.ok) {
