@@ -10,8 +10,7 @@ export function start() {
 
 export async function processUserCreated(idmUser) {
   try {
-    const hubspotContact = await findContactByEmails(idmUser.emails)
-    const contactVid = hubspotContact.vid
+    const contactVid = (await findContactByEmails(idmUser.emails)).vid
 
     console.log(`CRM Match Found: Syncing IDM user ${idmUser.id} with CRM contact ${contactVid}`)
 

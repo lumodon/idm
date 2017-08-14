@@ -7,7 +7,6 @@ export async function findContactByEmails(emails) {
   if (!contact) {
     throw new Error(`Did not find contact matching emails: ${emails}`)
   }
-
   return contact
 }
 
