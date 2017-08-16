@@ -1,6 +1,12 @@
+export const ADMIN = 'admin'
+export const COACH = 'coach'
+export const MEMBER = 'member'
+export const STAFF = 'staff'
+
 export const USER_ROLES = {
-  ADMIN: 'admin',
-  COACH: 'coach',
-  MEMBER: 'member',
-  STAFF: 'staff',
+  ADMIN,
+  COACH,
+  MEMBER,
+  STAFF,
 }
+
