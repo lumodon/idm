@@ -13,7 +13,6 @@ export async function processUserCreated(idmUser) {
     const contactVid = (await findContactByEmails(idmUser.emails)).vid
 
     console.log(`CRM Match Found: Syncing IDM user ${idmUser.id} with CRM contact ${contactVid}`)
-
     await r.table('users')
       .get(idmUser.id)
       .update({hubspotContactId: contactVid})

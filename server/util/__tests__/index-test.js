@@ -14,7 +14,7 @@ const iteratorFn = value => {
 
 test('first() takes a collection and passes each item into the iteratorFn().', async t => {
   const result = await first(collection, iteratorFn)
-  
+
   t.is(counter, 3, 'iteratorFn() was called the incorrect amount of times.')
   t.true(result, 'first() did not return true.')
   t.is(returnedValue, collection[3], 'first() returned unexpected value from collection.')
