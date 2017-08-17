@@ -13,7 +13,9 @@ export function start() {
 export async function processUserCreated(idmUser) {
   try {
     const contact = await findContactByEmails(idmUser.emails)
-    if (!contact) throw new Error(`No contact found matching emails for idm user ${idmUser.id}`)
+    if (!contact) {
+      throw new Error(`No contact found matching emails for idm user ${idmUser.id}`)
+    }
 
     console.log(`CRM Match Found: Syncing IDM user ${idmUser.id} with CRM contact ${contact.vid}...`)
 

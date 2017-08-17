@@ -1,4 +1,3 @@
-import {first} from 'src/server/util'
 import {updateContactByVID} from 'src/server/services/crmService'
 
 export async function addIdmToCrm(idmId, crmVid) {
