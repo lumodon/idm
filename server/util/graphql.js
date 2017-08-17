@@ -1,5 +1,3 @@
-// ported from echo
-
 import fetch from 'isomorphic-fetch'
 
 import config from 'src/config'

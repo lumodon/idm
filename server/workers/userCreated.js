@@ -1,5 +1,7 @@
 import {connect} from 'src/db'
-import {findContactByEmails, addIdmToCrm} from 'src/server/actions/crm'
+import {findContactByEmails} from 'src/server/actions/findContactByEmails'
+import {addIdmToCrm} from 'src/server/actions/addIdmToCrm'
+import createMember from 'src/server/actions/createMember'
 
 const r = connect()
 
@@ -10,15 +12,19 @@ export function start() {
 
 export async function processUserCreated(idmUser) {
   try {
-    const contactVid = (await findContactByEmails(idmUser.emails)).vid
+    const contact = await findContactByEmails(idmUser.emails)
+    if (!contact) throw new Error(`No contact found matching emails for idm user ${idmUser.id}`)
 
-    console.log(`CRM Match Found: Syncing IDM user ${idmUser.id} with CRM contact ${contactVid}`)
+    console.log(`CRM Match Found: Syncing IDM user ${idmUser.id} with CRM contact ${contact.vid}...`)
+
+    await createMember(idmUser.id, idmUser.inviteCode)
     await r.table('users')
       .get(idmUser.id)
-      .update({hubspotContactId: contactVid})
+      .update({hubspotId: contact.vid})
+    await addIdmToCrm(idmUser.id, contact.vid)
 
-    addIdmToCrm(idmUser.id, contactVid)
+    console.log('Done.')
   } catch (error) {
-    throw new Error(`Attempt to sync user data with CRM for ${idmUser.name} failed.`)
+    throw new Error(error.message)
   }
 }
