@@ -27,6 +27,6 @@ export async function processUserCreated(idmUser) {
 
     console.log('Done.')
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error('Failed to sync new user data with CRM.')
   }
 }
