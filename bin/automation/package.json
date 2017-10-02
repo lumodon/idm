@@ -1,0 +1,35 @@
+{
+  "name": "idm_automater",
+  "version": "0.1.0",
+  "description": "Identity Management Service",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LearnersGuild/idm.git"
+  },
+  "authors": [
+    {
+      "name": "Serafin Wesnidge"
+    }
+  ],
+  "engines": {
+    "node": "6.11.x",
+    "npm": "5.2.x"
+  },
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "keywords": [
+    "idm"
+  ],
+  "license": "MIT",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/LearnersGuild/idm/issues"
+  },
+  "homepage": "https://github.com/LearnersGuild/idm#readme",
+  "dependencies": {
+    "express": "^4.16.x"
+  },
+  "devDependencies": {}
+}
