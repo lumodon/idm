@@ -1,4 +1,4 @@
-module.exports = `
+module.exports = ({shells}) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +15,14 @@ module.exports = `
     </div>
     <div class="instruction">
       <p>Select your shell type</p>
-      `${
-        let iterator = 0
-        shells.map( shell => {
-          return '<input id="shell' + iterator + '" type="radio" name="shell" value="' + shell + '"/><label for="shell' + (iterator++) + '">' + shell + '</label>'
-        })
-      }`
-      <input id="password" type="password" placeholder="Shell Password"></input>
+      ${
+        (() => {
+          let iterator = 0
+          return shells.map( shell => {
+            return '<input class="shell-input" id="shell' + iterator + '" type="radio" name="shell" value="' + shell + '"/><label for="shell' + (iterator++) + '">' + shell + '</label>'
+          }).join(' ')
+        })()
+      }
     </div>
     <div class="instruction">
       <p>Do final stuff</p>

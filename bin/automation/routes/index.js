@@ -1,51 +1,14 @@
-const {exec} = require('child_process')
 const path = require('path')
-
-const supportedShells = [
-  'bash',
-  'zsh'
-]
-
-const execp = (path, envVars) => {
-  return new Promise((resolve, reject) => {
-    const options = {
-      env: envVars
-    }
-    exec(path, options, (err, stdout, stderr) => {
-      if(err) {
-        reject(err)
-        return
-      }
-      resolve({stdout, stderr})
-    })
-  })
-}
-
-const pathjoin = (file) => {
-  return path.join(__dirname, '..', '/shell_scripts/' + file + '.sh')
-}
-
-const validateBody = (body) => {
-  if(
-    typeof body.password !== 'string' ||
-    !body.password ||
-    body.password.length < 1
-  ) {
-    return false
-  }
-
-  if(
-    !supportedShells.includes(body.shell)
-  ) {
-    return false
-  }
-
-  return true
-}
+const {supportedShells} = require('../config.json')
+const {execPromise, validateBody} = require('../common')
 
 module.exports = app => {
+  const _pathjoin = (file) => {
+    return path.join(__dirname, '..', '/shell_scripts/' + file + '.sh')
+  }
+
   app.get('/', (request, response) => {
-    response.renderHTML('main')
+    response.renderHTML('main', {shells: supportedShells})
   })
 
   app.post('/start', (request, response) => {
@@ -65,11 +28,13 @@ module.exports = app => {
       },
     ]
 
-    scriptsArr.reduce( (acc, script) => {
+    // DRY code - we're doing the same thing multiple times,
+    // the only thing changing is the path and the environment variables:
+    scriptsArr.reduce((acc, script) => {
       return acc
         .then(({stdout, stderr}) => {
           console.log('stdout: ', stdout, '\nstderr: ', stderr, '\nend')
-          execp(pathjoin(script.path), script.envVars)
+          execPromise(_pathjoin(script.path), script.envVars)
         })
     }, Promise.resolve({stdout: null, stderr: null}))
       .catch(err => {

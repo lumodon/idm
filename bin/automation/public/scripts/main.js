@@ -1,8 +1,16 @@
 function start() {
+  const shellRadio = document.querySelectorAll('.shell-input')
+    .filter( radio => {
+      return radio.checked
+    }).value
+
+  console.log(shellRadio)
+
   const options = {
     method: 'post',
     body: JSON.stringify({
-      password: document.getElementById('password').value
+      password: document.getElementById('password').value,
+      shell: shellRadio
     }),
     headers: {
       'Accept': 'application/json',
